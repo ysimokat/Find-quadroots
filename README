@@ -1,0 +1,14 @@
+README
+
+# Yanhong.Simokat
+# classid111
+# mcs260 summer2016 Project1
+# see pseudocode.txt for program details
+
+General description:
+1. create a data file
+2. open the file and read file line by line
+3. process the input
+4. write output into another file
+
+#-----------end-----------------------------
