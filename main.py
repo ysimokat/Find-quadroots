@@ -25,6 +25,11 @@ def get_abc(line):
     # print a,b,c # for debugging
     return a,b,c
 
+def descrinant(a,b,c):
+    d = b ** 2 - 4 * a * c
+    # print d  # for debugging
+    return d
+
 def main():
     infile = open("quadabc.txt","r")   # open file 
     for line in infile:
@@ -36,6 +41,8 @@ def main():
         # print line  # for debugging
         a,b,c = get_abc(line)
         print a,b,c
+        d = descrinant(a,b,c)
+        print d
     infile.close()
 if __name__ == "__main__":
     main()
