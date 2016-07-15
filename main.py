@@ -12,6 +12,19 @@
     -write output to 'quadroots.txt'
 """
 
+def get_abc(line):
+    """ line is a string
+        extract to float a,b,c 
+        return a,b,c
+    """
+    list1 = line.split()  # split on whitespace
+    # print list1  # for debugging
+    a = float(list1[0])
+    b = float(list1[1])
+    c = float(list1[2])
+    # print a,b,c # for debugging
+    return a,b,c
+
 def main():
     infile = open("quadabc.txt","r")   # open file 
     for line in infile:
@@ -20,7 +33,9 @@ def main():
             continue
         if line[0] == "#":  # ignore comments
             continue
-        print line  # for debugging
+        # print line  # for debugging
+        a,b,c = get_abc(line)
+        print a,b,c
     infile.close()
 if __name__ == "__main__":
     main()
