@@ -1,19 +1,23 @@
-#-------------------quadabc.txt-------------------------------------
-# rows contains cofficients of f(x) = ax^2 + bx + c
-# each rows have three real numbers
-# each rows contains coefficients a,b,c 
+#-------------------------------------------------------
+# file contains the coefficients a,b,c 
+# f(x) = ax^2 + bx + c
+# a,b,c can be any real numbers
+# each data row have three real numbers
+# data rows cover six cases of quadratic polynomial
+#-------------------------------------------------------
 
+    0.0 0.0 0.0
 
-0.0 0.0 0.0
+    0.0 0.0 1.0
 
-0.0 0.0 1.0
+    0.0 2.0 4.0
 
-0.0 2.0 4.0
+    1.0 2.0 4.0
 
-1.0 2.0 4.0
+    1.0 2.0 1.0
 
-1.0 2.0 1.0
+    1.0 -5.0 6.0
 
-1.0 -5.0 6.0
+    1.0 2.0 3.0
 
-1.0 2.0 3.0
+----------------------end data--------------------------
