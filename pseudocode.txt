@@ -1,0 +1,22 @@
+Project description
+====================
+
+1. read data file line by line, see quadabc.txt
+2. extract a,b,c from f(x) = ax^2 + bx + c
+3. calculate polynomial roots
+4. write output to a file named quadroots.txt
+
+#---------------------------------------------------
+stepwise refinement
+#---------------------------------------------------
+
+1. open quadabc.txt
+2. read file line by line
+3. strip white space from beginning and end of strings 
+4. ignore blank lines and the comments
+5. convert each string of three characters to a list of character
+6. convert a list of three strings to floats a,b,c,print a,b,c out
+7. calculate descriminant d = b^2 - 4ac
+8. calculate quadratic x1 = (-b + sqrt(d))/(2a)
+9. calculate quadratic x2 = (-b - sqrt(d))/(2a)
+10.write output to 'quadroots.txt'
