@@ -36,13 +36,17 @@ def rootsd(a,b,c):
 
 def rootsf(a,b,c):
     """ when a = 0, no real/complex roots """
-    if b == 0:
-        return False
+    return "No real or complex roots"
 
 def rootsg(a,b,c):
     """ to find one root """
     root2 = - c / b
     return root2
+
+def rootsh(a,b,c):
+    """ a,c = 0, b is real number """
+    x = 0 / b
+    return x
 
 def rootsi(a,b):
     """ b^2-4ac = 0, perfect roots """
@@ -61,9 +65,29 @@ def rootsk(a,b,d,i):
     xminus = (- b - i * cmath.sqrt(d)) / (2 * a)
     return xplus,xminus
 
+def print_line(a,b,c,r):
+    print "==============================================================" 
+    print "(a,b,c) = (%4.1f,%4.1f,%4.1f)" % (a,b,c) 
+    print "--------------------------------------------------------------" 
+    print "f(x) = (%2.1f) * x ** 2 + (%2.1f) * x + (%2.1f)" % (a,b,c) 
+    print "--------------------------------------------------------------" 
+    print "roots = %s" % (str(r)) 
+    
+def writefile(outfile,a,b,c,r):
+    outfile.write("===========================================================" + "\n")
+    outfile.write("(a,b,c) = (%4.1f,%4.1f,%4.1f)" % (a,b,c) + "\n")
+    outfile.write("-----------------------------------------------------------" + "\n")
+    outfile.write("f(x) = (%2.1f) * x ** 2 + (%2.1f) * x + (%2.1f)" % (a,b,c) + "\n")
+    outfile.write("-----------------------------------------------------------" + "\n")
+    outfile.write("roots = %s" % (str(r)) + "\n")
+        
 def main():
     """ main function """
     infile = open("quadabc.txt","r")   # open file 
+    outfile = open("quadroots.txt", "w") # only write 
+    outfile.write("Yanhong Simokat" + "\n")
+    outfile.write("Classid 111" + "\n")
+    outfile.write("mcs260su16, project 1" + "\n")
     for line in infile:
         line = line.strip()   
         if line == "":  # ignore blank lines
@@ -72,43 +96,32 @@ def main():
             continue
         # print line  # for debugging
         a,b,c = get_abc(line) # extract a,b,c
-        print "(a,b,c): ", a,b,c 
+        #print "(a,b,c): ", a,b,c  # for debugging
+        d = descriminant(a,b,c)  # discriminant
+        #print d # for debugging
         if a == 0:     #specail cases where a = 0
             if  b == 0:
                 if c == 0:
-                    case1 = rootsd(a,b,c)
-                    print case1
-                    print
+                    r = rootsd(a,b,c)
                 elif c != 0:
-                    case2 = rootsf(a,b,c)   
-                    if case2 == False:
-                        print "No real or complex roots"
-                        print
+                    r = rootsf(a,b,c)   
             elif b != 0:
                 if c == 0:
-                     x = 0
-                     print x
-                     print
+                    r = rootsh(a,b,c)
                 elif c != 0:
-                    case3 = rootsg(a,b,c)
-                    print case3
-                    print
+                    r = rootsg(a,b,c)
 
         elif a != 0:  # use the quadratic formula
-            d = descriminant(a,b,c)  # discriminant
-            #print d # for debugging
             if d == 0:  # case 4: perfect square
-                case4 = rootsi(a,b)
-                print case4
-                print
+                r = rootsi(a,b)
             elif d > 0:  # case 5: two real roots
-                case5 = rootsj(a,b,d)
-                print case5
-                print
+                r = rootsj(a,b,d)
             elif d < 0:  # case 6: two complex roots
                 i = cmath.sqrt(-1)
-                case6 = rootsk(a,b,d,i)
-                print case6   
+                r = rootsk(a,b,d,i)
+        print_line(a,b,c,r)
+        writefile(outfile,a,b,c,r)
     infile.close()
+    outfile.close()
 if __name__ == "__main__":
     main()
