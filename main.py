@@ -1,4 +1,7 @@
 #!/usr/bin/env python
+
+import cmath
+
 """ file:main.py
     -main program file for project 1
     -input file 'quadabc.txt'
@@ -18,19 +21,34 @@ def get_abc(line):
         return a,b,c
     """
     list1 = line.split()  # split on whitespace
-    # print list1  # for debugging
     a = float(list1[0])
     b = float(list1[1])
     c = float(list1[2])
-    # print a,b,c # for debugging
     return a,b,c
 
-def descrinant(a,b,c):
+def descriminant(a,b,c):
     d = b ** 2 - 4 * a * c
-    # print d  # for debugging
     return d
 
+def rootsi(a,b):
+    """ b^2-4ac = 0, perfect roots """
+    root = - b / (2 * a)
+    return root
+
+def rootsj(a,b,d):
+    """ b^2-4ac > 0,two real roots """
+    xplus = (- b + cmath.sqrt(d)) / (2 * a)
+    xminus = (- b - cmath.sqrt(d)) / (2 * a)
+    return xplus,xminus
+
+def rootsk(a,b,d,i):
+    """ when b^2-4ac is negetive """
+    xplus = (- b + i * cmath.sqrt(d)) / (2 * a)
+    xminus = (- b - i * cmath.sqrt(d)) / (2 * a)
+    return xplus,xminus
+
 def main():
+    """ main function """
     infile = open("quadabc.txt","r")   # open file 
     for line in infile:
         line = line.strip()   
@@ -39,10 +57,25 @@ def main():
         if line[0] == "#":  # ignore comments
             continue
         # print line  # for debugging
-        a,b,c = get_abc(line)
-        print a,b,c
-        d = descrinant(a,b,c)
-        print d
+        a,b,c = get_abc(line) # extract a,b,c
+        print "(a,b,c): ", a,b,c 
+        print "-------------------------------------"
+        if a == 0:     #specail cases where a = 0
+            print "-----------do nothing where a = 0-------"
+        elif a != 0:  # use the quadratic formula
+            d = descriminant(a,b,c)  # discriminant
+            print d
+            print "---------------------"
+            if d == 0:  # case 4: perfect square
+                case4 = rootsi(a,b)
+                print case4
+            elif d > 0:  # case 5: two real roots
+                case5 = rootsj(a,b,d)
+                print case5
+            elif d < 0:  # case 6: two complex roots
+                i = cmath.sqrt(-1)
+                case6 = rootsk(a,b,d,i)
+                print case6
     infile.close()
 if __name__ == "__main__":
     main()
