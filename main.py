@@ -121,7 +121,7 @@ def main():
                 r = rootsk(a,b,d,i)
         print_line(a,b,c,r)
         writefile(outfile,a,b,c,r)
-    infile.close()
-    outfile.close()
+    infile.close() # close input file
+    outfile.close() # close output file
 if __name__ == "__main__":
     main()
