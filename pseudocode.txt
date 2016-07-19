@@ -17,6 +17,6 @@ stepwise refinement
 5. convert each string of three characters to a list of character
 6. convert a list of three strings to floats a,b,c,print a,b,c out
 7. calculate descriminant d = b^2 - 4ac
-8. calculate quadratic x1 = (-b + sqrt(d))/(2a)
-9. calculate quadratic x2 = (-b - sqrt(d))/(2a)
-10.write output to 'quadroots.txt'
+8. solve polynomial roots: use quadratic formula when a!=0,
+    handle special cases when a==0.
+9. write output to 'quadroots.txt'
