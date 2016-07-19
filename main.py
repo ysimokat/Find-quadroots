@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 import cmath
-
+import math
 """ file:main.py
     -main program file for project 1
     -input file 'quadabc.txt'
@@ -32,38 +32,45 @@ def descriminant(a,b,c):
 
 def rootsd(a,b,c):
     """ a = 0, all complex numbers are roots """
-    return "All complex numbers are roots" 
+    root = {'roots':'All complex numbers are roots'}
+    return ("%(roots)s" % root)
 
 def rootsf(a,b,c):
     """ when a = 0, no real/complex roots """
-    return "No real or complex roots"
+    root = {'roots':'No real or complex roots'}
+    return ("%(roots)s" % root)
 
 def rootsg(a,b,c):
     """ to find one root """
-    root2 = - c / b
-    return root2
+    x1 = - c / b
+    root = {'roots':x1}
+    return ("%(roots)s" % (root))
 
 def rootsh(a,b,c):
     """ a,c = 0, b is real number """
-    x = 0 / b
-    return x
+    x2 = 0 / b
+    root = {'roots':x2}
+    return ("%(roots)s" % (root))
 
 def rootsi(a,b):
     """ b^2-4ac = 0, perfect roots """
-    root = - b / (2 * a)
-    return root
+    x3 = - b / (2 * a)
+    root = {'roots':x3}
+    return ("%(roots)s" % (root))
 
 def rootsj(a,b,d):
     """ b^2-4ac > 0,two real roots """
-    xplus = (- b + cmath.sqrt(d)) / (2 * a)
-    xminus = (- b - cmath.sqrt(d)) / (2 * a)
-    return xplus,xminus
+    xplus = (- b + math.sqrt(d)) / (2 * a)
+    xminus = (- b - math.sqrt(d)) / (2 * a)
+    root = {'root1':xplus,'root2':xminus}
+    return ("%(root1)s,%(root2)s" % (root))
 
-def rootsk(a,b,d,i):
+def rootsk(a,b,d):
     """ when b^2-4ac is negetive """
-    xplus = (- b + i * cmath.sqrt(d)) / (2 * a)
-    xminus = (- b - i * cmath.sqrt(d)) / (2 * a)
-    return xplus,xminus
+    xplus = (- b +  cmath.sqrt(d)) / (2 * a)
+    xminus = (- b -  cmath.sqrt(d)) / (2 * a)
+    root = {'root1':xplus,'root2':xminus}
+    return ("%(root1)s,%(root2)s" % (root))
 
 def print_line(a,b,c,r):
     print "==============================================================" 
@@ -71,7 +78,7 @@ def print_line(a,b,c,r):
     print "--------------------------------------------------------------" 
     print "f(x) = (%2.1f) * x ** 2 + (%2.1f) * x + (%2.1f)" % (a,b,c) 
     print "--------------------------------------------------------------" 
-    print "roots = %s" % (str(r)) 
+    print ("roots = %s" % (r)) 
     
 def writefile(outfile,a,b,c,r):
     outfile.write("===========================================================" + "\n")
@@ -79,7 +86,7 @@ def writefile(outfile,a,b,c,r):
     outfile.write("-----------------------------------------------------------" + "\n")
     outfile.write("f(x) = (%2.1f) * x ** 2 + (%2.1f) * x + (%2.1f)" % (a,b,c) + "\n")
     outfile.write("-----------------------------------------------------------" + "\n")
-    outfile.write("roots = %s" % (str(r)) + "\n")
+    outfile.write("roots = %s" % (r) + "\n")
         
 def main():
     """ main function """
@@ -102,23 +109,23 @@ def main():
         if a == 0:     #specail cases where a = 0
             if  b == 0:
                 if c == 0:
-                    r = rootsd(a,b,c)
+                    r = rootsd(a,b,c) # all complex numbers are roots
                 elif c != 0:
-                    r = rootsf(a,b,c)   
+                    r = rootsf(a,b,c)   # no real or complex roots
             elif b != 0:
                 if c == 0:
-                    r = rootsh(a,b,c)
+                    r = rootsh(a,b,c) # root is zero
                 elif c != 0:
-                    r = rootsg(a,b,c)
+                    r = rootsg(a,b,c) # one roots
 
         elif a != 0:  # use the quadratic formula
-            if d == 0:  # case 4: perfect square
+            if d == 0:  # perfect square
                 r = rootsi(a,b)
-            elif d > 0:  # case 5: two real roots
+            elif d > 0:  # two real roots
                 r = rootsj(a,b,d)
-            elif d < 0:  # case 6: two complex roots
-                i = cmath.sqrt(-1)
-                r = rootsk(a,b,d,i)
+            elif d < 0:  # two complex roots
+                r = rootsk(a,b,d)
+        # print type(r)  #for debugging,r are strings
         print_line(a,b,c,r)
         writefile(outfile,a,b,c,r)
     infile.close() # close input file
