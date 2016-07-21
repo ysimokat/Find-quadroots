@@ -30,42 +30,42 @@ def descriminant(a,b,c):
     d = b ** 2 - 4 * a * c
     return d
 
-def rootsd(a,b,c):
-    """ a = 0, all complex numbers are roots """
+def root_case1(a,b,c):
+    """ a,b,c = 0, all complex numbers are roots """
     root = {'roots':'All complex numbers are roots'}
     return ("%(roots)s" % root)
 
-def rootsf(a,b,c):
-    """ when a = 0, no real/complex roots """
+def root_case2(a,b,c):
+    """ a,b = 0,c != 0, no real/complex roots """
     root = {'roots':'No real or complex roots'}
     return ("%(roots)s" % root)
 
-def rootsg(a,b,c):
-    """ to find one root """
-    x1 = - c / b
-    root = {'roots':x1}
-    return ("%(roots)s" % (root))
-
-def rootsh(a,b,c):
-    """ a,c = 0, b is real number """
+def root_case3(a,b,c):
+    """ a,c = 0, b is a real number """
     x2 = 0 / b
     root = {'roots':x2}
     return ("%(roots)s" % (root))
 
-def rootsi(a,b):
+def root_case4(a,b,c):
+    """ a= 0 ,b,c != 0, to find one root """
+    x1 = - c / b
+    root = {'roots':x1}
+    return ("%(roots)s" % (root))
+
+def root_case5(a,b):
     """ b^2-4ac = 0, perfect roots """
     x3 = - b / (2 * a)
     root = {'roots':x3}
     return ("%(roots)s" % (root))
 
-def rootsj(a,b,d):
+def root_case6(a,b,d):
     """ b^2-4ac > 0,two real roots """
     xplus = (- b + math.sqrt(d)) / (2 * a)
     xminus = (- b - math.sqrt(d)) / (2 * a)
     root = {'root1':xplus,'root2':xminus}
     return ("%(root1)s,%(root2)s" % (root))
 
-def rootsk(a,b,d):
+def root_case7(a,b,d):
     """ when b^2-4ac is negetive """
     xplus = (- b +  cmath.sqrt(d)) / (2 * a)
     xminus = (- b -  cmath.sqrt(d)) / (2 * a)
@@ -109,22 +109,22 @@ def main():
         if a == 0:     #specail cases where a = 0
             if  b == 0:
                 if c == 0:
-                    r = rootsd(a,b,c) # all complex numbers are roots
+                    r = root_case1(a,b,c) # all complex numbers are roots
                 elif c != 0:
-                    r = rootsf(a,b,c)   # no real or complex roots
+                    r = root_case2(a,b,c)   # no real or complex roots
             elif b != 0:
                 if c == 0:
-                    r = rootsh(a,b,c) # root is zero
+                    r = root_case3(a,b,c) # root is zero
                 elif c != 0:
-                    r = rootsg(a,b,c) # one roots
+                    r = root_case4(a,b,c) # one roots
 
         elif a != 0:  # use the quadratic formula
             if d == 0:  # perfect square
-                r = rootsi(a,b)
+                r = root_case5(a,b)
             elif d > 0:  # two real roots
-                r = rootsj(a,b,d)
+                r = root_case6(a,b,d)
             elif d < 0:  # two complex roots
-                r = rootsk(a,b,d)
+                r = root_case7(a,b,d)
         # print type(r)  #for debugging,r are strings
         print_line(a,b,c,r)
         writefile(outfile,a,b,c,r)
