@@ -69,8 +69,15 @@ def root_case7(a,b,d):
     """ when b^2-4ac is negetive """
     xplus = (- b +  cmath.sqrt(d)) / (2 * a)
     xminus = (- b -  cmath.sqrt(d)) / (2 * a)
-    root = {'root1':xplus,'root2':xminus}
-    return ("%(root1)s,%(root2)s" % (root))
+    #root = {'root1':xplus,'root2':xminus}
+    xplus_real = xplus.real
+    xplus_imag = xplus.imag
+    root1  = "(%2.2f + %2.2fi)"%(xplus_real,xplus_imag)
+    root2  = "(%2.2f - %2.2fi)"%(xplus_real,xplus_imag)
+    root = root1 +"\n "+ root2
+
+    #return ("%(root1)s,%(root2)s" % (root))
+    return root
 
 def print_line(a,b,c,r):
     print "==============================================================" 
@@ -78,7 +85,7 @@ def print_line(a,b,c,r):
     print "--------------------------------------------------------------" 
     print "f(x) = (%2.1f) * x^2 + (%2.1f) * x + (%2.1f)" % (a,b,c) 
     print "--------------------------------------------------------------" 
-    print ("roots = %s" % (r)) 
+    print ("roots:\n %s" % (r)) 
     
 def writefile(outfile,a,b,c,r):
     outfile.write("===========================================================" + "\n")
@@ -86,7 +93,7 @@ def writefile(outfile,a,b,c,r):
     outfile.write("-----------------------------------------------------------" + "\n")
     outfile.write("f(x) = (%2.1f) * x^2 + (%2.1f) * x + (%2.1f)" % (a,b,c) + "\n")
     outfile.write("-----------------------------------------------------------" + "\n")
-    outfile.write("roots = %s" % (r) + "\n")
+    outfile.write("roots:\n %s" % (r) + "\n")
         
 def main():
     """ main function """
@@ -106,25 +113,20 @@ def main():
         #print "(a,b,c): ", a,b,c  # for debugging
         d = descriminant(a,b,c)  # discriminant
         #print d # for debugging
-        if a == 0:     #specail cases where a = 0
-            if  b == 0:
-                if c == 0:
-                    r = root_case1(a,b,c) # all complex numbers are roots
-                elif c != 0:
-                    r = root_case2(a,b,c)   # no real or complex roots
-            elif b != 0:
-                if c == 0:
-                    r = root_case3(a,b,c) # root is zero
-                elif c != 0:
-                    r = root_case4(a,b,c) # one roots
-
-        elif a != 0:  # use the quadratic formula
-            if d == 0:  # perfect square
-                r = root_case5(a,b)
-            elif d > 0:  # two real roots
-                r = root_case6(a,b,d)
-            elif d < 0:  # two complex roots
-                r = root_case7(a,b,d)
+        if a == 0 and b == 0 and c == 0:
+            r = root_case1(a,b,c) # all complex numbers are roots
+        elif a == 0 and b == 0 and c != 0:
+            r = root_case2(a,b,c)   # no real or complex roots
+        elif a == 0 and b != 0 and c == 0:
+            r = root_case3(a,b,c) # root is zero
+        elif a == 0 and b !=0 and c != 0:
+            r = root_case4(a,b,c) # one roots
+        elif a != 0 and d == 0:  # use the quadratic formula
+            r = root_case5(a,b)
+        elif a != 0 and d > 0:  # two real roots
+            r = root_case6(a,b,d)
+        elif a != 0 and d < 0:  # two complex roots
+            r = root_case7(a,b,d)
         # print type(r)  #for debugging,r are strings
         print_line(a,b,c,r)
         writefile(outfile,a,b,c,r)
